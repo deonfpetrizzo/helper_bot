@@ -36,3 +36,4 @@ class Pomodoro:
 			print(pad(txt, 10), timer, end="\n" if sec == 0 else "\r")
 			time.sleep(1)
 			sec -= 1
+            

@@ -70,4 +70,3 @@ if __name__ == "__main__":
 	bot = HelperBot()
 	while True:
 		bot.run_cmd(input())
-    
