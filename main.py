@@ -18,6 +18,8 @@ class HelperBot:
             "c" : self.calc,
             "school" : self.school,
             "s" : self.school,
+            "github" : self.github,
+            "gh" : self.github,
             "pomodoro" : self.pom.start_timer_thread,
             "p" : self.pom.start_timer_thread,
             "help" : self.help,
@@ -53,6 +55,10 @@ class HelperBot:
         """opens school related tabs"""
         self.open_urls(SCHOOL_URLS)
 
+    def github(self):
+        """opens my github profile"""
+        self.open_urls(GITHUB_URL)
+
     def help(self):
         """displays all available commands"""
 
@@ -60,6 +66,7 @@ class HelperBot:
                ["mail", "m", self.mail.__doc__],
                ["calc", "c", self.calc.__doc__],
                ["school", "s", self.school.__doc__],
+               ["github", "gh", self.github.__doc__],
                ["pomodoro", "p", self.pom.start_timer_thread.__doc__, "work_minutes, break_minutes"],
                ["help", "h", self.help.__doc__],
                ["quit", "q", "exit"],
@@ -71,9 +78,9 @@ class HelperBot:
             for e in d:
                 cnt += 1
                 if cnt <= 2:
-                    row += e.ljust(12)
+                    row += e.ljust(MAX_CMD_LEN + 4)
                 else:
-                    row += e.ljust(43)
+                    row += e.ljust(MAX_COMMENT_LEN + 4)
             print(row)
 
     def open_urls(self, urls):

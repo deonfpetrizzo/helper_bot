@@ -9,3 +9,7 @@ MAIL_URLS = ["https://mail.google.com/mail/u/0",
              "https://mail.google.com/mail/u/1",
              "https://outlook.office.com/mail"]
 
+GITHUB_URL = ["https://github.com/deonfpetrizzo"]
+
+MAX_CMD_LEN = 8
+MAX_COMMENT_LEN = 39
