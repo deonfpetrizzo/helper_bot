@@ -3,22 +3,28 @@ import time
 import webbrowser 
 from pomodoro import Pomodoro
 from helpers import pad
-from constants import MAIL_URLS, CALC_URLS, SCHOOL_URLS
+from constants import * 
 
 class HelperBot:
     def __init__(self):
-        print("cmd" + pad("", 7) + "out")
         self.pom = Pomodoro()
 
     def run_cmd(self, cmd):
         """parses string commands and arguments and runs the corresponding functions"""
         cmds = {
+            "mail" : self.mail,
             "m" : self.mail,
+            "calc" : self.calc,
             "c" : self.calc,
+            "school" : self.school,
             "s" : self.school,
+            "pomodoro" : self.pom.start_timer_thread,
             "p" : self.pom.start_timer_thread,
+            "help" : self.help,
             "h" : self.help,
+            "quit" : sys.exit,
             "q" : sys.exit,
+            "exit" : sys.exit,
             "e" : sys.exit
         }
         
@@ -29,9 +35,9 @@ class HelperBot:
             else:
                 cmds[tkns[0].lower()]()
         except KeyError:
-            print(pad("invalid cmd", 10))
+            print("invalid cmd")
         except TypeError:
-            print(pad("enter args", 10))
+            print("enter args")
         except IndexError:
             pass
 
@@ -49,16 +55,26 @@ class HelperBot:
 
     def help(self):
         """displays all available commands"""
-        txts = ["m: " + self.mail.__doc__,
-                "c: " + self.calc.__doc__,
-                "s: " + self.school.__doc__,
-                "p: " + self.pom.start_timer_thread.__doc__,
-                "h: help",
-                "q: exit",
-                "e: exit"]
 
-        for txt in txts:
-            print(pad(txt, 10))
+        dat = [["COMMAND", "SHORTCUT", "FUNCTION", "ARGS"],
+               ["mail", "m", self.mail.__doc__],
+               ["calc", "c", self.calc.__doc__],
+               ["school", "s", self.school.__doc__],
+               ["pomodoro", "p", self.pom.start_timer_thread.__doc__, "work_minutes, break_minutes"],
+               ["help", "h", self.help.__doc__],
+               ["quit", "q", "exit"],
+               ["exit", "e", "exit"]]
+
+        for d in dat:
+            row = ""
+            cnt = 0
+            for e in d:
+                cnt += 1
+                if cnt <= 2:
+                    row += e.ljust(12)
+                else:
+                    row += e.ljust(43)
+            print(row)
 
     def open_urls(self, urls):
         """opens an arbitrary number of tabs"""

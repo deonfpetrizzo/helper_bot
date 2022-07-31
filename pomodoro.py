@@ -9,8 +9,7 @@ class Pomodoro:
         pass
 
     def start_timer_thread(self, work_mins, break_mins):
-        """starts a pomodoro timer in a new thread
-         args: work_mins, break_mins"""
+        """starts a pomodoro timer in a new thread"""
         def pomodoro():
             work_seconds = work_mins * 60
             break_seconds = break_mins * 60
@@ -33,7 +32,7 @@ class Pomodoro:
         """runs a count down timer and displays the time remaining"""
         while sec >= 0:
             timer = datetime.timedelta(seconds=sec)
-            print(pad(txt, 10), timer, end="\n" if sec == 0 else "\r")
+            print(pad(txt, 15), timer, end="\n" if sec == 0 else "\r")
             time.sleep(1)
             sec -= 1
             

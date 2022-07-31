@@ -1,2 +1,3 @@
-def pad(string, pad_size):
-    return (pad_size * ' ') + string
+def pad(string, num_spaces):
+    return (num_spaces * ' ') + string
+
