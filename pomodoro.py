@@ -26,13 +26,13 @@ class Pomodoro:
     def chime(self):
         """plays an alarm-like sound"""
         for i in range(3):
-            playsound('note.mp3')
+            playsound("note.mp3")
 
     def count_down(self, sec, txt):
         """runs a count down timer and displays the time remaining"""
         while sec >= 0:
             timer = datetime.timedelta(seconds=sec)
-            print(pad(txt, 15), timer, end="\n" if sec == 0 else "\r")
+            print(txt, timer, end="\n" if sec == 0 else "\r")
             time.sleep(1)
             sec -= 1
             
