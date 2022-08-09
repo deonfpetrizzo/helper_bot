@@ -1,4 +1,5 @@
-import sys 
+import os
+import sys
 import time 
 import webbrowser 
 from pomodoro import Pomodoro
@@ -14,12 +15,16 @@ class HelperBot:
         cmds = {
             "mail" : self.mail,
             "m" : self.mail,
-            "calc" : self.calc,
-            "c" : self.calc,
+            "calculator" : self.calculator,
+            "c" : self.calculator,
             "school" : self.school,
             "s" : self.school,
             "github" : self.github,
-            "gh" : self.github,
+            "g" : self.github,
+            "spotify" : self.spotify,
+            "sp" : self.spotify,
+            "notepad" : self.notepad,
+            "n" : self.notepad,
             "pomodoro" : self.pom.start_timer_thread,
             "p" : self.pom.start_timer_thread,
             "help" : self.help,
@@ -42,12 +47,12 @@ class HelperBot:
             print("enter args")
         except IndexError:
             pass
-
+            
     def mail(self):
         """opens all my email accounts"""
         self.open_urls(MAIL_URLS)
 
-    def calc(self):
+    def calculator(self):
         """opens math related tabs"""
         self.open_urls(CALC_URLS)
 
@@ -59,13 +64,23 @@ class HelperBot:
         """opens my github profile"""
         self.open_urls(GITHUB_URL)
 
+    def spotify(self):
+        """opens spotify"""
+        os.startfile("spotify")
+
+    def notepad(self):
+        """opens notepad"""
+        os.startfile("notepad")
+
     def help(self):
         """displays all available commands"""
-        dat = [["COMMAND", "SHORTCUT", "FUNCTION", "ARGS"],
+        dat = [[".command.", ".shortcut.", ".function.", ".arguments."],
                ["mail", "m", self.mail.__doc__],
-               ["calc", "c", self.calc.__doc__],
+               ["calculator", "c", self.calculator.__doc__],
                ["school", "s", self.school.__doc__],
-               ["github", "gh", self.github.__doc__],
+               ["github", "g", self.github.__doc__],
+               ["spotify", "sp", self.spotify.__doc__],
+               ["notepad", "n", self.notepad.__doc__],
                ["pomodoro", "p", self.pom.start_timer_thread.__doc__, "work_minutes, break_minutes"],
                ["help", "h", self.help.__doc__],
                ["quit", "q", "exit"],
