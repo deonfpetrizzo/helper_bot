@@ -20,7 +20,9 @@ class HelperBot:
             "school" : self.school,
             "s" : self.school,
             "github" : self.github,
-            "g" : self.github,
+            "gh" : self.github,
+            "monkeytype" : self.monkeytype,
+            "mt" : self.monkeytype,
             "spotify" : self.spotify,
             "sp" : self.spotify,
             "notepad" : self.notepad,
@@ -64,6 +66,10 @@ class HelperBot:
         """opens my github profile"""
         self.open_urls(GITHUB_URL)
 
+    def monkeytype(self):
+        """opens monkeytype"""
+        self.open_urls(MONKEYTYPE_URL)
+
     def spotify(self):
         """opens spotify"""
         os.startfile("spotify")
@@ -78,7 +84,8 @@ class HelperBot:
                ["mail", "m", self.mail.__doc__],
                ["calculator", "c", self.calculator.__doc__],
                ["school", "s", self.school.__doc__],
-               ["github", "g", self.github.__doc__],
+               ["github", "gh", self.github.__doc__],
+               ["monkeytype", "mt", self.monkeytype.__doc__],
                ["spotify", "sp", self.spotify.__doc__],
                ["notepad", "n", self.notepad.__doc__],
                ["pomodoro", "p", self.pom.start_timer_thread.__doc__, "work_minutes, break_minutes"],
