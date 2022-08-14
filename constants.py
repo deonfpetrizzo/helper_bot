@@ -15,4 +15,3 @@ GITHUB_URL = ['https://github.com/deonfpetrizzo']
 MONKEYTYPE_URL = ['https://monkeytype.com']
 
 MAX_CMD_LEN = 10
-MAX_COMMENT_LEN = 47
