@@ -19,7 +19,7 @@ class NoteManager:
         paths = []
         for filename in os.listdir(directory):
             path = os.path.join(directory, filename)
-            if os.path.isfile(path):
+            if os.path.isfile(path) and path[path.index('.'):] == '.txt':
                 paths.append(path)
         return paths
 
