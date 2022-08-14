@@ -13,7 +13,7 @@ class NoteManager:
         self.keep = gkeepapi.Keep()
         self.keep.login(acct['username'], acct['password'])
 
-    def get_txt_file_paths(self):
+    def get_txt_paths(self):
         '''returns a list of all txt file paths in the notes directory'''
         directory = 'notes'
         paths = []
@@ -26,7 +26,7 @@ class NoteManager:
     def push(self):
         '''transfers txt file data to gkeep'''
         self.login()
-        paths = self.get_txt_file_paths()
+        paths = self.get_txt_paths()
         notes = self.keep.all() 
         does_note_exist = False
         for path in paths:
@@ -47,7 +47,7 @@ class NoteManager:
     def pull(self):
         '''updates txt files to match corresponding gkeep notes'''
         self.login()
-        paths = self.get_txt_file_paths()
+        paths = self.get_txt_paths()
         notes = self.keep.all()
         for path in paths:
             title = path[path.index('\\')+1 : path.index('.')]
