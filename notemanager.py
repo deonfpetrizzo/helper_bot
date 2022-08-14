@@ -24,8 +24,7 @@ class NoteManager:
         return txt_file_paths
 
     def push(self):
-        '''transfers all local txt file data
-                    in the notes directory to google keep'''
+        '''transfers local txt file data to google keep'''
         txt_file_paths = self.get_txt_file_paths()
         notes = self.keep.all() 
         does_note_exist = False
@@ -50,9 +49,8 @@ class NoteManager:
             self.keep.sync()
 
     def pull(self):
-        '''updates the bodies of all local txt 
-                    files in the notes directory to match 
-                    those of corresponding google keep notes'''
+        '''updates the bodies of local txt files to match 
+                            those of corresponding google keep notes'''
         txt_file_paths = self.get_txt_file_paths()
         gnotes = self.keep.all()
 
