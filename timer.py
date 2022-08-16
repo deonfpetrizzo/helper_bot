@@ -5,8 +5,8 @@ from threading import Thread
 from playsound import playsound
 
 class Timer:
-    def __init__(self):
-        pass
+    def __init__(self, mp3_path):
+        self.mp3_path = mp3_path
 
     def pomodoro(self, work_min, break_min):
         '''starts a pomodoro timer in a new thread'''
@@ -32,7 +32,7 @@ class Timer:
     def chime(self):
         '''plays an alarm-like sound'''
         for i in range(3):
-            playsound('resources/note.mp3')
+            playsound(self.mp3_path)
 
     def cntdown(self, mins, txt):
         '''runs a count down timer and displays the time remaining'''

@@ -3,8 +3,9 @@ import json
 import gkeepapi
 
 class NoteManager:
-    def __init__(self, acct_file_path):
+    def __init__(self, acct_file_path, notes_dir_path):
         self.acct_file_path = acct_file_path
+        self.notes_dir_path = notes_dir_path
 
     def login(self):
         '''logs into gkeepapi using user credentials'''
@@ -15,7 +16,7 @@ class NoteManager:
 
     def get_txt_paths(self):
         '''returns a list of all txt file paths in the notes directory'''
-        directory = 'notes'
+        directory = self.notes_dir_path
         paths = []
         for filename in os.listdir(directory):
             path = os.path.join(directory, filename)

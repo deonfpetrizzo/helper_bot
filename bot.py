@@ -9,8 +9,8 @@ from constants import *
 
 class PersonalBot:
     def __init__(self):
-        self.timer = Timer()
-        self.note_manager = NoteManager('resources/gkeep-login.json')
+        self.timer = Timer('resources/note.mp3')
+        self.note_manager = NoteManager('resources/gkeep-login.json', 'notes')
 
     def run_cmd(self, cmd):
         '''parses string commands and arguments and runs the corresponding functions'''
