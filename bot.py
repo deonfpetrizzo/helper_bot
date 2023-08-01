@@ -1,11 +1,10 @@
 import os
 import sys
-import inspect
+import random
 import traceback
 from urls import * 
 from spotify import Spotify
-from robinhood import Portfolio
-from robinhood import Stock
+from robinhood import Portfolio, Stock
 from keep import Keep
 from argparser import ArgParser
 from helpers import *
@@ -16,28 +15,20 @@ class Bot:
         try:
             self.parser = ArgParser()
             self.__run()
-        except Exception as e:
-            print(e)
-            print(
-                f"error:     invalid cmd\n"
-                f"list cmds: py {sys.argv[0]} help"
-            )
+        except Exception:
+            traceback.print_exc()
 
-    def __mail(self):
-        """opens my email accounts"""
-        open_urls(MAIL_URLS)
-
-    def __math(self):
-        """opens math related tabs"""
-        open_urls(CALC_URLS)
-
-    def __school(self):
-        """opens school related tabs"""
-        open_urls(SCHOOL_URLS)
-
-    def __social(self):
-        """opens socials"""
-        open_urls(SOCIAL_URLS)
+    def __checkin(self, options=None):
+        """opens urls i frequently check"""
+        urls = {
+            "-m": MAIL_URLS,
+            "-s": SCHOOL_URLS,
+            "-S": SOCIAL_URLS
+        }
+        if options == None:
+            return
+        for option in options:
+            open_urls(urls[option])
 
     def __note(self, options=None, path=None):
         """opens note-taking apps or saves to/from gkeep"""
@@ -81,28 +72,26 @@ class Bot:
     def __help(self):
         """displays all usages and their summaries"""
         help_msg = (
-            f"py {self.parser.prog_name} <cmd>\n"
-            "cmds:   mail\n"
-            "\tschool\n"
-            "\tmath\n"
-            "\tsocial\n"
-            "\thelp\n"
-            "\tnote [-n] [-k] [-o dir_path | -i dir_path]\n"
-            "\t\t-n:          open notepad\n"
-            "\t\t-k:          open gkeep\n"
-            "\t\t-o dir_path: push notes from dir_path to gkeep\n"
-            "\t\t-i dir_path: pull notes from gkeep to dir_path\n"
-            "\t\tdir_path:    path to txt file directory to push/pull to/from\n"
-            "\tspotify [-p [song] | -s [search_term]]\n"
-            "\t\t-p:          play on open\n"
-            "\t\t-s:          search on open\n"
-            "\t\tsong:        name of song to play\n"
-            "\t\tsearch_term: name of artist/song/album/playlist to search\n"
-            "\tstocks [-v] [-o] [-s ticker]\n"
-            "\t\t-v:        show portfolio value and daily profit/loss\n"
-            "\t\t-o:        open robinhood\n"
-            "\t\t-s ticker: get information about a particular stock\n"
-            "\t\tticker:    ticker/stock symbol\n"
+            f"{hl('checkin', 94)} [-m] [-s] [-S]\n"
+            "\t-m: open email accounts\n"
+            "\t-s: open school related tabs\n"
+            "\t-S: open socials\n\n"
+            f"{hl('note', 94)} [-n] [-k] [-o dir_path | -i dir_path]\n"
+            "\t-n:          open notepad\n"
+            "\t-k:          open gkeep\n"
+            "\t-o dir_path: push notes from dir_path to gkeep\n"
+            "\t-i dir_path: pull notes from gkeep to dir_path\n"
+            "\tdir_path:    path to txt file directory to push/pull to/from\n\n"
+            f"{hl('spotify', 94)} [-p [song] | -s [search_term]]\n"
+            "\t-p:          play on open\n"
+            "\t-s:          search on open\n"
+            "\tsong:        name of song to play\n"
+            "\tsearch_term: name of artist/song/album/playlist to search\n\n"
+            f"{hl('stocks', 94)} [-v] [-o] [-s ticker]\n"
+            "\t-v:        show portfolio value and daily profit/loss\n"
+            "\t-o:        open robinhood\n"
+            "\t-s ticker: get information about a particular stock\n"
+            "\tticker:    ticker/stock symbol"
         )
         print(help_msg)
 
@@ -114,12 +103,9 @@ class Bot:
         nargs = len(args)
         nopts = len(options)
         cmds = {
-            "mail": self.__mail,
-            "math": self.__math,
-            "school": self.__school,
+            "checkin": self.__checkin,
             "spotify": self.__spotify,
             "note": self.__note,
-            "social": self.__social,
             "stocks": self.__stocks,
             "help": self.__help
         }  
