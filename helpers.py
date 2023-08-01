@@ -15,19 +15,22 @@ def n_to_s(n, money=False, per=False):
         return f'{n:.2f}%'
     return f'{n:.2f}'
 
+def hl(s, color):
+    """changes the color of a string"""
+    return f"\033[{color}m{s}\033[0m"
+
 def pretty_n_to_s(n, money=False, percentage=False, yellow=False):
     """converts num to colored, signed string"""
     s = n_to_s(n, money, percentage)
-    def append_to(x): 
-        return x + '\033[0m'
+    rst_color = lambda x : x + '\033[0m'
     if yellow:
-        return append_to(f'\033[93m{s}')
+        return hl(s, 93)
     if n > 0 and percentage:
-        return append_to(f'\033[92m({s})')
+        return hl(s, 92)
     if n > 0:
-        return append_to(f'\033[92m+{s}')
+        return hl(s, 92)
     if n < 0 and percentage:
-        return append_to(f'\033[91m({s})')
+        return hl(s, 91)
     if n < 0:
-        return append_to(f'\033[91m{s}')
-    return append_to(s)
+        return hl(s, 91)
+    return hl(s, 0)
