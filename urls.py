@@ -1,10 +1,5 @@
 """urls"""
 
-MATH_URLS = [
-    "https://www.desmos.com/calculator", 
-    "https://www.symbolab.com"
-]
-
 SCHOOL_URLS = [
     "https://caltech.instructure.com",
     "https://calendar.google.com/calendar/u/0/r"
