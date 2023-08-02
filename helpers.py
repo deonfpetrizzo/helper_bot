@@ -8,7 +8,7 @@ def open_urls(urls):
         time.sleep(1)
 
 def n_to_s(n, money=False, per=False):
-    """truncates num and formats it as currency or percent"""
+    """truncates num and formats it as dollar or percent"""
     if money:
         return f"${abs(n):.2f}"
     if per:
@@ -22,7 +22,6 @@ def hl(s, color):
 def pretty_n_to_s(n, money=False, percentage=False, yellow=False):
     """converts num to colored, signed string"""
     s = n_to_s(n, money, percentage)
-    rst_color = lambda x : x + "\033[0m"
     if yellow:
         return hl(s, 93)
     if n > 0 and percentage:
