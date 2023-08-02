@@ -9,7 +9,7 @@ class Keep:
         self.acct_file_path = acct_file_path
 
     def __login(self):
-        """logs into gkeepapi with user credentials"""
+        """logs into gkeepapi"""
         with open(self.acct_file_path, "r", encoding="utf-8") as f:
             acct = json.load(f)
         self.keep = gkeepapi.Keep()
