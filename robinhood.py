@@ -66,30 +66,28 @@ class Portfolio(Robinhood):
 
     def __portfolio_value(self):
         """returns the value of the portfolio"""
-        value = 0
-        for pos in self.positions:
-            value += pos[1]*pos[2]
-        return value
+        values = [pos[1]*pos[2] for pos in self.positions]
+        return sum(values)
 
     def __portfolio_initial_value(self):
         """returns the value of the portfolio at the end of the last trading period"""
         values = [self.starting_values[i]*self.positions[i][2] for i in range(len(self.positions))]
         return sum(values)
 
-    def value(self):
-        """prints portfolio value, detailing the all open positions"""
+    def performance(self):
+        """prints portfolio's performance, detailing all open positions"""
         position_pnls, position_percentile_pnls = self.__position_pnls()
         portfolio_pnl, portfolio_percentile_pnl = self.__portfolio_pnl()
         portfolio_value = self.__portfolio_value()
 
         i = 0
         pad = lambda s : s.ljust(12)
-        positions = f"{pad('ticker')}{pad('price')}{pad('shares')}{pad('pnl')}\n"
+        position_performance = f"{pad('ticker')}{pad('price')}{pad('shares')}{pad('pnl')}\n"
         for pos in self.positions:
             ticker = pos[0]
             price = n_to_s(pos[1], money=True)
             quantity = n_to_s(pos[2])
-            positions += (
+            position_performance += (
                 f"{pad(ticker)}"
                 f"{pad(price)}"
                 f"{pad(quantity)}"
@@ -98,14 +96,13 @@ class Portfolio(Robinhood):
             )
             i += 1
 
-        output = (
+        portfolio_performance = (
             f"{pretty_n_to_s(portfolio_value, money=True, yellow=True)}"
             f" {pretty_n_to_s(portfolio_pnl, money=True)}"
-            f" {pretty_n_to_s(portfolio_percentile_pnl, percentage=True)}\n\n"
-            f"{positions}"
+            f" {pretty_n_to_s(portfolio_percentile_pnl, percentage=True)}"
         )
         
-        print(output)
+        print(f"{portfolio_performance}\n\n{position_performance}")
 
 class Stock(Robinhood):
     def __init__(self, acct_file_path, ticker):
@@ -113,4 +110,4 @@ class Stock(Robinhood):
 
 if __name__ == "__main__":
     portfolio = Portfolio("res/robinhood-login.json")
-    portfolio.value()
+    portfolio.performance()
