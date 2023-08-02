@@ -16,7 +16,7 @@ class Bot:
             self.parser = ArgParser()
             self.__run()
         except Exception:
-            traceback.print_exc()
+            self.__help()
 
     def __checkin(self, options=None):
         """opens urls i frequently check"""
@@ -31,7 +31,7 @@ class Bot:
             open_urls(urls[option])
 
     def __note(self, options=None, path=None):
-        """opens note-taking apps or saves to/from gkeep"""
+        """opens note-taking apps, saves to/from gkeep"""
         self.keep = Keep("res/gkeep-login.json")
         if options == None:
             self.keep.open()
@@ -57,6 +57,7 @@ class Bot:
             self.spotify.search(search_string)
 
     def __stocks(self, options=None, ticker=None):
+        """opens robinhood, displays portfolio/ticker performance"""
         if options == None: 
             open_urls(ROBINHOOD_URL)
             return
@@ -70,7 +71,7 @@ class Bot:
                 pass
 
     def __help(self, base_cmd="help"):
-        """displays all usages and their summaries"""
+        """prints usage statements"""
         checkin_usg = (
             f"{hl('c, checkin', 94)} [{hl('-h', 93)}] | [-m -s -S]\n"
             "\t-m: open email accounts\n"
@@ -99,11 +100,13 @@ class Bot:
             "\t-s ticker: get information about a particular stock\n"
             "\tticker:    ticker/stock symbol"
         )
+        help_usg = f"{hl('h, help', 94)}"
         help_msg = (
-            f"{checkin_usg}\n\n"
-            f"{note_usg}\n\n"
-            f"{spotify_usg}\n\n"
-            f"{stocks_usg}\n\n"
+            f"{checkin_usg}\n"
+            f"{note_usg}\n"
+            f"{spotify_usg}\n"
+            f"{stocks_usg}\n"
+            f"{help_usg}\n"
             f"{hl('-h', 93)}: print specific usage statement"
         )
         output_msg = {
